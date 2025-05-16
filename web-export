@@ -1,0 +1,23 @@
+function tableToCSV() {
+    var table = document.querySelector('table');
+    var rows = table.querySelectorAll('tr');
+    var csv = [];
+
+    rows.forEach(function(row) {
+        var cols = row.querySelectorAll('td, th'); 
+        var rowData = [];
+        cols.forEach(function(col) {
+            rowData.push('"' + col.innerText.trim() + '"'); 
+        });
+        csv.push(rowData.join(',')); 
+    });
+
+    
+    var Pelatro = new Blob([csv.join('\n')], { type: 'text/csv' });
+    var downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(Pelatro);
+    downloadLink.download = 'Bisous.csv'; 
+    downloadLink.click();
+}
+
+tableToCSV(); 
